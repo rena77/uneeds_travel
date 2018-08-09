@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.travel.MemberMapper">
+
+
+	<insert id="t_travelapilist">		
+		INSERT INTO t_tgroub_table (contentid, contenttype, mapx, mapy, count) 
+		VALUE (#{contentid}, #{contenttype}, #{mapx}, #{mapy}, #{count}) ON DUPLICATE KEY UPDATE contentid = #{contentid}
+	</insert>
+
+	<insert id= "t_bookmarkinfo">
+		insert into t_bookmark_table (TourMembercode, contentid) 
+		select (select mcode from umemeber_table where mid = #{TourMembercode}), contentid from dual
+		where not exists (select * from t_bookmark_table where contentid = #{contentid})
+	</insert>
+</mapper>
+
+
