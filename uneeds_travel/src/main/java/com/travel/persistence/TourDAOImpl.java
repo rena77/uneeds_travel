@@ -1,11 +1,14 @@
 package com.travel.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.travel.model.BookMarkVO;
+import com.travel.model.ReviewVO;
 import com.travel.model.TravelareainfoVO;
 
 @Repository
@@ -23,9 +26,19 @@ public class TourDAOImpl implements TourDAO {
 	}
 
 	@Override
-	public void bookmarkinfo(BookMarkVO vo) {
-		System.out.println("여기까지 됨?");
+	public void bookmarkinsertinfo(BookMarkVO vo) {
 		mysqlSession.insert(namespace + ".t_bookmarkinfo", vo);
+	}
+
+	@Override
+	public void reviewinsertinfo(ReviewVO vo) {
+		mysqlSession.insert(namespace + ".t_review_table", vo);
+	}
+
+	@Override
+	public List<ReviewVO> reviewselectinfo() {
+		List<ReviewVO> list = mysqlSession.selectList(namespace + ".reviewselectinfo");
+		return list;
 	}
 
 

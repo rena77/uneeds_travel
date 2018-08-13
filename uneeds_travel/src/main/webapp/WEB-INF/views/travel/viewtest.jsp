@@ -164,7 +164,6 @@ var infowindows = []; // 정보 배열
 	
 	// 마커 클릭시 값 가져오기
 </script>
-
 <script>
   function detailshowhide(){
 	  
@@ -181,64 +180,170 @@ var infowindows = []; // 정보 배열
   }
 </script>
 
+<!--  list 표시 -->
+<script>
+	function detailedinformat(number){
+		var ul = $("#list_place_col1");
+		detailshowhide();
+		
+		ul.empty();
+		
+		ul.append(
+				"<li class=list_item type_restaurant=''>" +
+						"<div class=list_item_inner id ='listdetail'>"+
+						"</div>" +
+					"<div class=list_item_inner>" +
+						"</div>" +
+					"<div class=list_item_inner>" +
+						"<h3><span> 함께 검색한 장소 </span></h3>" +
+						"</div>" +
+					"<div class=list_item_inner>" +
+						"<h3>리뷰</h3>" +
+						"<div class='star_area'>" +
+							"<span class='star'>" +
+								"<span class='bg'>"+
+								"<span class='value' style='width:86%'></span></span></span>"+
+								"<span class='score'><em>4.3</em> / 5</span></div>" +
+								"<input type = 'button' value = '리뷰 더 보기' style='text-align: center;' />" +
+						"</div><button onclick = javascript:detailshowhide()>돌아가기</button></li>");
+	}
+	
+</script>
 
-
-<!-- 선택시 맵 변경 부분 -->
+<!-- api list 표시 -->
 <script>
 	function detailedinformationlist(data){
 		var item = $(data).find("item");
-				
 		var contenttypeid = item.find("contenttypeid").text();
-		var divlist = $('#listid_'+item.find("contentid").text());
-		
-		var ul = $("#list_place_col1");
-		ul.empty();
-		
-		detailshowhide();
 				
-		switch (contenttypeid){
-			case '12' : // 관광지 
-				ul.append(
-					"<li class=list_item type_restaurant=''>" +
-						"<div class=list_item_inner>" +
-								"<span>유모차대여 정보 : </span><span>" + item.find("chkbabycarriage").text()+ "</span></br>" +
-								"<span>신용카드가능 정보 : </span><span>" + item.find("chkcreditcard").text()+ "</span></br>" +
-								"<span>애완동물동반가능 정보 : </span><span>" + item.find("chkpet").text()+ "</span></br>" +
-								"<span>문의 및 안내 : </span><span>" + item.find("infocenter").text()+ "</span></br>" +
-							"</div>" +
-						"<div class=list_item_inner>" +
-							"</div>" +
-						"<div class=list_item_inner>" +
-							"<h3><span> 함께 검색한 장소 </span></h3>" +
-							"</div>" +
-						"<div class=list_item_inner>" +
-							"<h3><span> 리뷰 </span></h3>" +
-							"</div><button onclick = javascript:detailshowhide()>돌아가기</button></li>");
-				break;
-			case '14' : // 문화시설
-				divlist.append("<div>" +	item.find("infocenterculture").text() + "</div>");
-				break;
-			case '15' : // 행사/공연/축제
-				divlist.append("<div>" +	item.find("infocenterculture").text() + "</div>");
-				break;
-			case '25' : // 여행코스
-				divlist.append("<div>" +	item.find("distance").text() + "</div>");
-				divlist.append("<div>" +	item.find("taketime").text() + "</div>");
-				break;
-			case '28' : // 레포츠
-				divlist.append("<div>" +	item.find("infocenterleports").text() + "</div>");
-				break;
-			case '32' : // 숙박
-				divlist.append("<div>" +	item.find("infocenterlodging").text() + "</div>");
-				break;
-			case '38' : // 쇼핑
-				divlist.append("<div>" +	item.find("infocentershopping").text() + "</div>");
-				break;
-			case '39' : // 음식점
-				divlist.append("<div>" +	item.find("infocenterfood").text() + "</div>");
-				break;
-		}
-		
+
+		var ullist = $("#listdetail");
+		ullist.empty();
+				
+		if(item.find("accomcount").text() != '' && item.find("accomcount").text() != '0'){ullist.append("<span>수용인원 : " + item.find("accomcount").text()+ "</span></br>")};
+		if(item.find("chkbabycarriage").text() != '' && item.find("chkbabycarriage").text() != '0'){ullist.append("<span>유모차대여 정보 : " + item.find("chkbabycarriage").text()+ "</span></br>")};
+		if(item.find("chkcreditcard").text() != '' && item.find("chkcreditcard").text() != '0'){ullist.append("<span>신용카드가능 정보 : " + item.find("chkcreditcard").text()+ "</span></br>")};
+		if(item.find("chkpet").text() != '' && item.find("chkpet").text() != '0'){ullist.append("<span>애완동물동반가능 정보 : " + item.find("chkpet").text()+ "</span></br>")};
+		if(item.find("expagerange").text() != '' && item.find("expagerange").text() != '0'){ullist.append("<span>체험가능 연령 : " + item.find("expagerange").text()+ "</span></br>")};
+		if(item.find("expguide").text() != '' && item.find("expguide").text() != '0'){ullist.append("<span>체험안내 : " + item.find("expguide").text()+ "</span></br>")};
+		if(item.find("heritage1").text() != '' && item.find("heritage1").text() != '0'){ullist.append("<span>세계 문화유산 유무 : " + item.find("heritage1").text()+ "</span></br>")};
+		if(item.find("heritage2").text() != '' && item.find("heritage2").text() != '0'){ullist.append("<span>세계 자연유산 유무 : " + item.find("heritage2").text()+ "</span></br>")};
+		if(item.find("heritage3").text() != '' && item.find("heritage3").text() != '0'){ullist.append("<span>세계 기록유산 유무 : " + item.find("heritage3").text()+ "</span></br>")};
+		if(item.find("infocenter").text() != '' && item.find("infocenter").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocenter").text()+ "</span></br>")};
+		if(item.find("opendate").text() != '' && item.find("opendate").text() != '0'){ullist.append("<span>개장일 : " + item.find("opendate").text()+ "</span></br>")};
+		if(item.find("parking").text() != '' && item.find("parking").text() != '0'){ullist.append("<span>주차시설 : " + item.find("parking").text()+ "</span></br>")};
+		if(item.find("restdate").text() != '' && item.find("restdate").text() != '0'){ullist.append("<span>쉬는날 : " + item.find("restdate").text()+ "</span></br>")};
+		if(item.find("useseason").text() != '' && item.find("useseason").text() != '0'){ullist.append("<span>이용시기 : " + item.find("useseason").text()+ "</span></br>")};
+		if(item.find("usetime").text() != '' && item.find("usetime").text() != '0'){ullist.append("<span>이용시간 : " + item.find("usetime").text()+ "</span></br>")};
+		if(item.find("accomcountculture").text() != '' && item.find("accomcountculture").text() != '0'){ullist.append("<span>수용인원 : " + item.find("accomcountculture").text()+ "</span></br>")};
+		if(item.find("chkbabycarriage culture").text() != '' && item.find("chkbabycarriage culture").text() != '0'){ullist.append("<span>유모차대여 정보 : " + item.find("chkbabycarriage culture").text()+ "</span></br>")};
+		if(item.find("chkcreditcardculture").text() != '' && item.find("chkcreditcardculture").text() != '0'){ullist.append("<span>신용카드가능 정보 : " + item.find("chkcreditcardculture").text()+ "</span></br>")};
+		if(item.find("chkpetculture").text() != '' && item.find("chkpetculture").text() != '0'){ullist.append("<span>애완동물동반가능 정보 : " + item.find("chkpetculture").text()+ "</span></br>")};
+		if(item.find("discountinfo").text() != '' && item.find("discountinfo").text() != '0'){ullist.append("<span>할인정보 : " + item.find("discountinfo").text()+ "</span></br>")};
+		if(item.find("infocenterculture").text() != '' && item.find("infocenterculture").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocenterculture").text()+ "</span></br>")};
+		if(item.find("parkingculture").text() != '' && item.find("parkingculture").text() != '0'){ullist.append("<span>주차시설 : " + item.find("parkingculture").text()+ "</span></br>")};
+		if(item.find("parkingfee").text() != '' && item.find("parkingfee").text() != '0'){ullist.append("<span>주차요금 : " + item.find("parkingfee").text()+ "</span></br>")};
+		if(item.find("restdateculture").text() != '' && item.find("restdateculture").text() != '0'){ullist.append("<span>쉬는날 : " + item.find("restdateculture").text()+ "</span></br>")};
+		if(item.find("usefee").text() != '' && item.find("usefee").text() != '0'){ullist.append("<span>이용요금 : " + item.find("usefee").text()+ "</span></br>")};
+		if(item.find("usetimeculture").text() != '' && item.find("usetimeculture").text() != '0'){ullist.append("<span>이용시간 : " + item.find("usetimeculture").text()+ "</span></br>")};
+		if(item.find("scale").text() != '' && item.find("scale").text() != '0'){ullist.append("<span>규모 : " + item.find("scale").text()+ "</span></br>")};
+		if(item.find("spendtime").text() != '' && item.find("spendtime").text() != '0'){ullist.append("<span>관람 소요시간 : " + item.find("spendtime").text()+ "</span></br>")};
+		if(item.find("agelimit").text() != '' && item.find("agelimit").text() != '0'){ullist.append("<span>관람 가능연령 : " + item.find("agelimit").text()+ "</span></br>")};
+		if(item.find("bookingplace").text() != '' && item.find("bookingplace").text() != '0'){ullist.append("<span>예매처 : " + item.find("bookingplace").text()+ "</span></br>")};
+		if(item.find("discountinfofestival").text() != '' && item.find("discountinfofestival").text() != '0'){ullist.append("<span>할인정보 : " + item.find("discountinfofestival").text()+ "</span></br>")};
+		if(item.find("eventenddate").text() != '' && item.find("eventenddate").text() != '0'){ullist.append("<span>행사 종료일 : " + item.find("eventenddate").text()+ "</span></br>")};
+		if(item.find("eventhomepage").text() != '' && item.find("eventhomepage").text() != '0'){ullist.append("<span>행사 홈페이지 : " + item.find("eventhomepage").text()+ "</span></br>")};
+		if(item.find("eventplace").text() != '' && item.find("eventplace").text() != '0'){ullist.append("<span>행사 장소 : " + item.find("eventplace").text()+ "</span></br>")};
+		if(item.find("eventstartdate").text() != '' && item.find("eventstartdate").text() != '0'){ullist.append("<span>행사 시작일 : " + item.find("eventstartdate").text()+ "</span></br>")};
+		if(item.find("festivalgrade").text() != '' && item.find("festivalgrade").text() != '0'){ullist.append("<span>축제등급 : " + item.find("festivalgrade").text()+ "</span></br>")};
+		if(item.find("placeinfo").text() != '' && item.find("placeinfo").text() != '0'){ullist.append("<span>행사장 위치안내 : " + item.find("placeinfo").text()+ "</span></br>")};
+		if(item.find("playtime").text() != '' && item.find("playtime").text() != '0'){ullist.append("<span>공연시간 : " + item.find("playtime").text()+ "</span></br>")};
+		if(item.find("program").text() != '' && item.find("program").text() != '0'){ullist.append("<span>행사 프로그램 : " + item.find("program").text()+ "</span></br>")};
+		if(item.find("spendtimefestival").text() != '' && item.find("spendtimefestival").text() != '0'){ullist.append("<span>관람 소요시간 : " + item.find("spendtimefestival").text()+ "</span></br>")};
+		if(item.find("sponsor1").text() != '' && item.find("sponsor1").text() != '0'){ullist.append("<span>주최자 정보 : " + item.find("sponsor1").text()+ "</span></br>")};
+		if(item.find("sponsor1tel").text() != '' && item.find("sponsor1tel").text() != '0'){ullist.append("<span>주최자 연락처 : " + item.find("sponsor1tel").text()+ "</span></br>")};
+		if(item.find("sponsor2").text() != '' && item.find("sponsor2").text() != '0'){ullist.append("<span>주관사 정보 : " + item.find("sponsor2").text()+ "</span></br>")};
+		if(item.find("sponsor2tel").text() != '' && item.find("sponsor2tel").text() != '0'){ullist.append("<span>주관사 연락처 : " + item.find("sponsor2tel").text()+ "</span></br>")};
+		if(item.find("subevent").text() != '' && item.find("subevent").text() != '0'){ullist.append("<span>부대행사 : " + item.find("subevent").text()+ "</span></br>")};
+		if(item.find("usetimefestival").text() != '' && item.find("usetimefestival").text() != '0'){ullist.append("<span>이용요금 : " + item.find("usetimefestival").text()+ "</span></br>")};
+		if(item.find("distance").text() != '' && item.find("distance").text() != '0'){ullist.append("<span>코스 총거리 : " + item.find("distance").text()+ "</span></br>")};
+		if(item.find("infocentertour course").text() != '' && item.find("infocentertour course").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocentertour course").text()+ "</span></br>")};
+		if(item.find("schedule").text() != '' && item.find("schedule").text() != '0'){ullist.append("<span>코스 일정 : " + item.find("schedule").text()+ "</span></br>")};
+		if(item.find("taketime").text() != '' && item.find("taketime").text() != '0'){ullist.append("<span>코스 총 소요 시간 : " + item.find("taketime").text()+ "</span></br>")};
+		if(item.find("theme").text() != '' && item.find("theme").text() != '0'){ullist.append("<span>코스 테마 : " + item.find("theme").text()+ "</span></br>")};
+		if(item.find("accomcountleports").text() != '' && item.find("accomcountleports").text() != '0'){ullist.append("<span>수용인원 : " + item.find("accomcountleports").text()+ "</span></br>")};
+		if(item.find("chkbabycarriageleports").text() != '' && item.find("chkbabycarriageleports").text() != '0'){ullist.append("<span>유모차대여 정보 : " + item.find("chkbabycarriageleports").text()+ "</span></br>")};
+		if(item.find("chkcreditcardleports").text() != '' && item.find("chkcreditcardleports").text() != '0'){ullist.append("<span>신용카드가능 정보 : " + item.find("chkcreditcardleports").text()+ "</span></br>")};
+		if(item.find("chkpetleports").text() != '' && item.find("chkpetleports").text() != '0'){ullist.append("<span>애완동물동반가능 정보 : " + item.find("chkpetleports").text()+ "</span></br>")};
+		if(item.find("expagerangeleports").text() != '' && item.find("expagerangeleports").text() != '0'){ullist.append("<span>체험 가능연령 : " + item.find("expagerangeleports").text()+ "</span></br>")};
+		if(item.find("infocenterleports").text() != '' && item.find("infocenterleports").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocenterleports").text()+ "</span></br>")};
+		if(item.find("openperiod").text() != '' && item.find("openperiod").text() != '0'){ullist.append("<span>개장기간 : " + item.find("openperiod").text()+ "</span></br>")};
+		if(item.find("parkingfeeleports").text() != '' && item.find("parkingfeeleports").text() != '0'){ullist.append("<span>주차요금 : " + item.find("parkingfeeleports").text()+ "</span></br>")};
+		if(item.find("parkingleports").text() != '' && item.find("parkingleports").text() != '0'){ullist.append("<span>주차시설 : " + item.find("parkingleports").text()+ "</span></br>")};
+		if(item.find("reservation").text() != '' && item.find("reservation").text() != '0'){ullist.append("<span>예약안내 : " + item.find("reservation").text()+ "</span></br>")};
+		if(item.find("restdateleports").text() != '' && item.find("restdateleports").text() != '0'){ullist.append("<span>쉬는날 : " + item.find("restdateleports").text()+ "</span></br>")};
+		if(item.find("scaleleports").text() != '' && item.find("scaleleports").text() != '0'){ullist.append("<span>규모 : " + item.find("scaleleports").text()+ "</span></br>")};
+		if(item.find("usefeeleports").text() != '' && item.find("usefeeleports").text() != '0'){ullist.append("<span>입장료 : " + item.find("usefeeleports").text()+ "</span></br>")};
+		if(item.find("usetimeleports").text() != '' && item.find("usetimeleports").text() != '0'){ullist.append("<span>이용시간 : " + item.find("usetimeleports").text()+ "</span></br>")};
+		if(item.find("accomcountlodging").text() != '' && item.find("accomcountlodging").text() != '0'){ullist.append("<span>수용 가능인원 : " + item.find("accomcountlodging").text()+ "</span></br>")};
+		if(item.find("benikia").text() != '' && item.find("benikia").text() != '0'){ullist.append("<span>베니키아 여부 : " + item.find("benikia").text()+ "</span></br>")};
+		if(item.find("chekintime").text() != '' && item.find("chekintime").text() != '0'){ullist.append("<span>입실 시간 : " + item.find("chekintime").text()+ "</span></br>")};
+		if(item.find("checkouttime").text() != '' && item.find("checkouttime").text() != '0'){ullist.append("<span>퇴실 시간 : " + item.find("checkouttime").text()+ "</span></br>")};
+		if(item.find("chkcooking").text() != '' && item.find("chkcooking").text() != '0'){ullist.append("<span>객실내 취사 여부 : " + item.find("chkcooking").text()+ "</span></br>")};
+		if(item.find("foodplace").text() != '' && item.find("foodplace").text() != '0'){ullist.append("<span>식음료장 : " + item.find("foodplace").text()+ "</span></br>")};
+		if(item.find("goodstay").text() != '' && item.find("goodstay").text() != '0'){ullist.append("<span>굿스테이 여부 : " + item.find("goodstay").text()+ "</span></br>")};
+		if(item.find("hanok").text() != '' && item.find("hanok").text() != '0'){ullist.append("<span>한옥 여부 : " + item.find("hanok").text()+ "</span></br>")};
+		if(item.find("infocenterlodging").text() != '' && item.find("infocenterlodging").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocenterlodging").text()+ "</span></br>")};
+		if(item.find("parkingloding").text() != '' && item.find("parkingloding").text() != '0'){ullist.append("<span>CLOB : " + item.find("parkingloding").text()+ "</span></br>")};
+		if(item.find("pickup").text() != '' && item.find("pickup").text() != '0'){ullist.append("<span>픽업 서비스 : " + item.find("pickup").text()+ "</span></br>")};
+		if(item.find("roomcount").text() != '' && item.find("roomcount").text() != '0'){ullist.append("<span>객실수 : " + item.find("roomcount").text()+ "</span></br>")};
+		if(item.find("reservationlodging").text() != '' && item.find("reservationlodging").text() != '0'){ullist.append("<span>예약안내 : " + item.find("reservationlodging").text()+ "</span></br>")};
+		if(item.find("reservationlodging").text() != '' && item.find("reservationlodging").text() != '0'){ullist.append("<span>예약안내 홈페이지 : " + item.find("reservationlodging").text()+ "</span></br>")};
+		if(item.find("roomtype").text() != '' && item.find("roomtype").text() != '0'){ullist.append("<span>객실유형 : " + item.find("roomtype").text()+ "</span></br>")};
+		if(item.find("scalelodging").text() != '' && item.find("scalelodging").text() != '0'){ullist.append("<span>규모 : " + item.find("scalelodging").text()+ "</span></br>")};
+		if(item.find("subfacility").text() != '' && item.find("subfacility").text() != '0'){ullist.append("<span>부대시설 (기타) : " + item.find("subfacility").text()+ "</span></br>")};
+		if(item.find("barbecue").text() != '' && item.find("barbecue").text() != '0'){ullist.append("<span>바비큐장 여부 : " + item.find("barbecue").text()+ "</span></br>")};
+		if(item.find("beauty").text() != '' && item.find("beauty").text() != '0'){ullist.append("<span>뷰티시설 정보 : " + item.find("beauty").text()+ "</span></br>")};
+		if(item.find("beverage").text() != '' && item.find("beverage").text() != '0'){ullist.append("<span>식음료장 여부 : " + item.find("beverage").text()+ "</span></br>")};
+		if(item.find("bicycle").text() != '' && item.find("bicycle").text() != '0'){ullist.append("<span>자전거 대여 여부 : " + item.find("bicycle").text()+ "</span></br>")};
+		if(item.find("campfire").text() != '' && item.find("campfire").text() != '0'){ullist.append("<span>캠프파이어 여부 : " + item.find("campfire").text()+ "</span></br>")};
+		if(item.find("fitness").text() != '' && item.find("fitness").text() != '0'){ullist.append("<span>휘트니스 센터 여부 : " + item.find("fitness").text()+ "</span></br>")};
+		if(item.find("karaoke").text() != '' && item.find("karaoke").text() != '0'){ullist.append("<span>노래방 여부 : " + item.find("karaoke").text()+ "</span></br>")};
+		if(item.find("publicbath").text() != '' && item.find("publicbath").text() != '0'){ullist.append("<span>공용 샤워실 여부 : " + item.find("publicbath").text()+ "</span></br>")};
+		if(item.find("publicpc").text() != '' && item.find("publicpc").text() != '0'){ullist.append("<span>공동 PC실 여부 : " + item.find("publicpc").text()+ "</span></br>")};
+		if(item.find("sauna").text() != '' && item.find("sauna").text() != '0'){ullist.append("<span>사우나실 여부 : " + item.find("sauna").text()+ "</span></br>")};
+		if(item.find("seminar").text() != '' && item.find("seminar").text() != '0'){ullist.append("<span>세미나실 여부 : " + item.find("seminar").text()+ "</span></br>")};
+		if(item.find("sports").text() != '' && item.find("sports").text() != '0'){ullist.append("<span>스포츠 시설 여부 : " + item.find("sports").text()+ "</span></br>")};
+		if(item.find("chkbabycarriageshopping").text() != '' && item.find("chkbabycarriageshopping").text() != '0'){ullist.append("<span>유모차대여 정보 : " + item.find("chkbabycarriageshopping").text()+ "</span></br>")};
+		if(item.find("chkcreditcardshopping").text() != '' && item.find("chkcreditcardshopping").text() != '0'){ullist.append("<span>신용카드가능 정보 : " + item.find("chkcreditcardshopping").text()+ "</span></br>")};
+		if(item.find("chkpetshopping").text() != '' && item.find("chkpetshopping").text() != '0'){ullist.append("<span>애완동물동반가능 정보 : " + item.find("chkpetshopping").text()+ "</span></br>")};
+		if(item.find("culturecenter").text() != '' && item.find("culturecenter").text() != '0'){ullist.append("<span>문화센터 바로가기 : " + item.find("culturecenter").text()+ "</span></br>")};
+		if(item.find("fairday").text() != '' && item.find("fairday").text() != '0'){ullist.append("<span>장서는 날 : " + item.find("fairday").text()+ "</span></br>")};
+		if(item.find("infocentershopping").text() != '' && item.find("infocentershopping").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocentershopping").text()+ "</span></br>")};
+		if(item.find("opendateshopping").text() != '' && item.find("opendateshopping").text() != '0'){ullist.append("<span>개장일 : " + item.find("opendateshopping").text()+ "</span></br>")};
+		if(item.find("opentime").text() != '' && item.find("opentime").text() != '0'){ullist.append("<span>영업시간 : " + item.find("opentime").text()+ "</span></br>")};
+		if(item.find("parkingshopping").text() != '' && item.find("parkingshopping").text() != '0'){ullist.append("<span>주차시설 : " + item.find("parkingshopping").text()+ "</span></br>")};
+		if(item.find("restdateshopping").text() != '' && item.find("restdateshopping").text() != '0'){ullist.append("<span>쉬는날 : " + item.find("restdateshopping").text()+ "</span></br>")};
+		if(item.find("restroom").text() != '' && item.find("restroom").text() != '0'){ullist.append("<span>화장실 설명 : " + item.find("restroom").text()+ "</span></br>")};
+		if(item.find("saleitem").text() != '' && item.find("saleitem").text() != '0'){ullist.append("<span>판매 품목 : " + item.find("saleitem").text()+ "</span></br>")};
+		if(item.find("sleitemcost").text() != '' && item.find("sleitemcost").text() != '0'){ullist.append("<span>판매 품목별 가격 : " + item.find("sleitemcost").text()+ "</span></br>")};
+		if(item.find("scaleshopping").text() != '' && item.find("scaleshopping").text() != '0'){ullist.append("<span>규모 : " + item.find("scaleshopping").text()+ "</span></br>")};
+		if(item.find("shopguide").text() != '' && item.find("shopguide").text() != '0'){ullist.append("<span>매장안내 : " + item.find("shopguide").text()+ "</span></br>")};
+		if(item.find("chkcreditcrdfood").text() != '' && item.find("chkcreditcrdfood").text() != '0'){ullist.append("<span>신용카드가능 정보 : " + item.find("chkcreditcrdfood").text()+ "</span></br>")};
+		if(item.find("discountinfofood").text() != '' && item.find("discountinfofood").text() != '0'){ullist.append("<span>할인정보 : " + item.find("discountinfofood").text()+ "</span></br>")};
+		if(item.find("firstmenu").text() != '' && item.find("firstmenu").text() != '0'){ullist.append("<span>대표 메뉴 : " + item.find("firstmenu").text()+ "</span></br>")};
+		if(item.find("infocenterfood").text() != '' && item.find("infocenterfood").text() != '0'){ullist.append("<span>문의 및 안내 : " + item.find("infocenterfood").text()+ "</span></br>")};
+		if(item.find("kidsfacility").text() != '' && item.find("kidsfacility").text() != '0'){ullist.append("<span>어린이 놀이방 여부 : " + item.find("kidsfacility").text()+ "</span></br>")};
+		if(item.find("opendatefood").text() != '' && item.find("opendatefood").text() != '0'){ullist.append("<span>개업일 : " + item.find("opendatefood").text()+ "</span></br>")};
+		if(item.find("opentimefood").text() != '' && item.find("opentimefood").text() != '0'){ullist.append("<span>영업시간 : " + item.find("opentimefood").text()+ "</span></br>")};
+		if(item.find("packing").text() != '' && item.find("packing").text() != '0'){ullist.append("<span>포장 가능 : " + item.find("packing").text()+ "</span></br>")};
+		if(item.find("parkingfood").text() != '' && item.find("parkingfood").text() != '0'){ullist.append("<span>주차시설 : " + item.find("parkingfood").text()+ "</span></br>")};
+		if(item.find("reservationfood").text() != '' && item.find("reservationfood").text() != '0'){ullist.append("<span>예약안내 : " + item.find("reservationfood").text()+ "</span></br>")};
+		if(item.find("restdatefood").text() != '' && item.find("restdatefood").text() != '0'){ullist.append("<span>쉬는날 : " + item.find("restdatefood").text()+ "</span></br>")};
+		if(item.find("scalefood").text() != '' && item.find("scalefood").text() != '0'){ullist.append("<span>규모 : " + item.find("scalefood").text()+ "</span></br>")};
+		if(item.find("seat").text() != '' && item.find("seat").text() != '0'){ullist.append("<span>좌석수 : " + item.find("seat").text()+ "</span></br>")};
+		if(item.find("smoking").text() != '' && item.find("smoking").text() != '0'){ullist.append("<span>금연/흡연 여부 : " + item.find("smoking").text()+ "</span></br>")};
+		if(item.find("treatmenu").text() != '' && item.find("treatmenu").text() != '0'){ullist.append("<span>취급 메뉴 : " + item.find("treatmenu").text()+ "</span></br>")};	
 	}
 </script>
 
@@ -258,6 +363,7 @@ function listpage1(listdata){
 				"contentId" : contentid
 				},
 			success :	function(data){
+				detailedinformat(number);
 				detailedinformationlist(data);
 				listClickHandler(number);
 			},
@@ -278,14 +384,12 @@ function listpage1(listdata){
 				alert("로그인 후 등록해주세요.");
 			}else {
 				alert("등록되었습니다.");
-				alert(id);
-				alert(listcontentid);
-				$.post("t_bookmarkinfo", {
-					TourMembercode : id,
-					contentid : listcontentid
-				}).done(function(data, state) {
-				});
 				
+				$.post("t_bookmarkinfo", {
+					tourmembercode : id,
+					contentid : listcontentid
+					}).done(function(data, state) {
+					});
 			}
 	}
 </script>
@@ -318,14 +422,16 @@ function listpage1(listdata){
 												"<input type='hidden' name = 'data1' class = 'data1' value = '"+ i +"'>" +
 												"<input type='hidden' name = 'data2' class = 'data2' value = '" + item.find("contentid").text() + "'>" +
 												"<input type='hidden' name = 'data3' class = 'data3' value = '" + item.find("contenttypeid").text() + "'>" +
-											"</div></form></div></li>");
+											"</div></form>" +
+											"<div><span>콘텐츠 조회수 : " + item.find("readcount").text() + "</span></div>"+
+											"</div></li>");
 					
 					$.post("t_travelapilist", {
 						contentid : Number(item.find("contentid").text()),
 						contenttype : Number(item.find("contenttypeid").text()),
 						mapx : Number(item.find("mapx").text()),
 						mapy : Number(item.find("mapy").text()),
-						count : Number(item.find("readcount").text()),
+						count : Number(item.find("readcount").text())
 					}).done(function(data, state) {
 					});
 			}

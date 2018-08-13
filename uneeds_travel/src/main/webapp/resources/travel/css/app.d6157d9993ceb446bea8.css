@@ -165,7 +165,6 @@ h3 {
   font-size: 20px;
   color: #26304d;
   padding: 0;
-  margin: 50px 0 0;
 }
 .api_naver_gnb {
  position:absolute;
@@ -6961,4 +6960,53 @@ h3 {
 	min-height: 250px;
 	width: 250px;
 	!important
+}
+
+
+.star_area {
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.star_area .star {
+    display: inline-block;
+    margin-top: 7px;
+    vertical-align: top;
+}
+
+.star_area .star .bg {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 146px;
+    height: 27px;
+    background: url(https://store.naver.com/sogum/assets/pc/images/star.svg) no-repeat;
+    background-size: 146px 27px;
+    vertical-align: top;
+}
+
+.star_area .star .value{
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 27px;
+    background: url(https://store.naver.com/sogum/assets/pc/images/star_active.svg) no-repeat;
+}
+
+.star_area .score {
+    margin-left: 16px;
+    font-family: arial, sans-serif;
+    font-size: 40px;
+    color: #999;
+    line-height: 44px;
+    vertical-align: top;
+}
+
+.star_area .score em {
+    font-weight: bold;
+    color: #242424;
 }

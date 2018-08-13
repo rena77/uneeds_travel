@@ -12,10 +12,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<insert id= "t_bookmarkinfo">
-		insert into t_bookmark_table (TourMembercode, contentid) 
-		select (select mcode from umemeber_table where mid = #{TourMembercode}), contentid from dual
+		insert into t_bookmark_table (TourMembercode, contentid)
+		select (select mcode from umemeber_table where mid = #{tourmembercode}), #{contentid} from dual
 		where not exists (select * from t_bookmark_table where contentid = #{contentid})
 	</insert>
+	
+	<insert id= "t_review_table">
+		insert into t_review_table (TourMembercode, contentid, tourtext, star)
+		values ((select mcode from umemeber_table where mid = #{tourmembercode}), #{contentid}, #{tourtext}, #{star})
+	</insert>
+	
+	<select id = "reviewselectinfo">
+		SELECT * FROM t_review_table where contentid = #{contentid};
+	</select>
 </mapper>
 
 

@@ -35,6 +35,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 import com.travel.model.BookMarkVO;
+import com.travel.model.ReviewVO;
 import com.travel.model.TravelareainfoVO;
 import com.travel.persistence.TourDAO;
 
@@ -258,7 +259,7 @@ public class HomeController {
 
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
-	
+
 	/* 여행 list 자동 저장 등록 */
 	@RequestMapping(value = "t_travelapilist", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> insertMemberAjax(HttpServletRequest r, TravelareainfoVO vo) {
@@ -290,9 +291,12 @@ public class HomeController {
 		HashMap<String, String> states = new HashMap<String, String>();
 		states.put("state", "ok");
 		// insert
-		dao.bookmarkinfo(vo);
+		dao.bookmarkinsertinfo(vo);
 		
 		return states;
 	}
+	
+	/* 리뷰 정보 저장 */
+
 	
 }
