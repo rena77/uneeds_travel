@@ -18,4 +18,7 @@ public interface LoginDAO {
 	public void logout(HttpSession session);
 	
 	public HashMap<String, Object> selectOne(String usr);
+	
+	// api 로그인
+	public int login(String id, String site);
 }

@@ -9,13 +9,14 @@ body,input,textarea,table,button,code {
 }
 
 select { 
-	width: 200px; /* 원하는 너비설정 */ 
-	padding: .8em .5em; /* 여백으로 높이 설정 */ 
-	font-family: inherit; /* 폰트 상속 */ 
-	border: 1px solid #999; 
-	border-radius: 0px; /* iOS 둥근모서리 제거 */ 
-	-moz-appearance: none; 
-	appearance: none; 
+	height:40px;
+  	line-height:40px;  
+  	border-radius:3px;
+  	border:1px solid;
+  	border-color: rgba(0, 0, 0, 1);
+  	background-color: transparent;
+  	font-family: inherit; /* 폰트 상속 */  
+  	color:rgba(0, 0, 0, 1);
 }
 
 body {
@@ -508,7 +509,7 @@ h3 {
 .flick_container {
  overflow:hidden;
  position:relative;
- margin:0 -71px;
+ margin:0 0px;
  white-space:nowrap
 }
 .flick_container::before,.flick_container::after {
@@ -517,7 +518,6 @@ h3 {
  top:0;
  bottom:0;
  z-index:2010;
- width:71px;
  content:''
 }
 .flick_container::before {
@@ -554,7 +554,7 @@ h3 {
  display:none
 }
 .flick_container .btn_prev {
- left:34px
+ left:-2px
 }
 .flick_container .btn_prev .icon {
  left:-2px;
@@ -562,7 +562,7 @@ h3 {
  transform:rotate(180deg)
 }
 .flick_container .btn_next {
- right:34px
+ right:0px
 }
 .flick_container .btn_next .icon {
  left:2px
@@ -573,10 +573,10 @@ h3 {
  vertical-align:top
 }
 .flick_content:first-child .list_item {
- margin-left:71px
+ margin-left:24px
 }
 .flick_content:last-child .list_item {
- margin-right:71px
+ margin-right:24px
 }
 .brand_promotion_banner {
  margin-top:18px
@@ -1394,7 +1394,7 @@ h3 {
  position:absolute;
  top:50%;
  left:401px;
- z-index:10;
+ z-index:1;
  width:20px;
  height:50px;
  margin-top:-25px;
@@ -6962,7 +6962,6 @@ h3 {
 	!important
 }
 
-
 .star_area {
     float: left;
     width: 100%;
@@ -7010,3 +7009,290 @@ h3 {
     font-weight: bold;
     color: #242424;
 }
+
+.star_area_list {
+    float: left;
+    width: 100%;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.star_area_list .star_list {
+    display: inline-block;
+    margin-top: 7px;
+    vertical-align: top;
+}
+
+.star_area_list .star_list .bg {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 120px;
+    height: 27px;
+    background: url(https://store.naver.com/sogum/assets/pc/images/star.svg) no-repeat;
+    background-size: 120px 27px;
+    vertical-align: top;
+}
+
+.star_area_list .star_list .value{
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 27px;
+    background: url(https://store.naver.com/sogum/assets/pc/images/star_active.svg) no-repeat;
+    background-size: 120px 27px;
+}
+
+.star_area_list .score {
+    margin-left: 16px;
+    font-family: arial, sans-serif;
+    font-size: 20px;
+    color: #999;
+    line-height: 44px;
+    vertical-align: top;
+}
+
+.star_area_list .score em {
+    font-weight: bold;
+    color: #242424;
+}
+     
+.review_area_list { height: 60px; min-width: 800px; position: absolute; overflow: hidden; }
+.review_area_list a { height: 45px; position: absolute;  }
+
+.review_area_list {
+ overflow:hidden;
+ position:relative;
+ max-width:3360px;
+ height:312px;
+ margin:-1px auto;
+ background:#e2e2e2
+}
+
+.sc_box.reviewlist {
+ padding-top:39px;
+ padding-bottom:36px
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 2; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+    
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding-bottom: 0.5px;
+    padding-top: 0.5px;
+    border: 1px solid #888;
+    width: 600px; /* Could be more or less, depending on screen size */
+    z-index: 1;          
+}
+/* The Close Button */
+.modal-close {
+	color: #aaa;
+	float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.modal-close:hover, .modal-close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.title-tile {
+    background-color: #397045;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    z-index: 1;
+}
+
+.review-text-indent {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    padding-left: 56px;
+    width: 100%;
+}
+
+.review-text-tile-with-add-photo .review-text:focus {
+    border-bottom: 2px solid #4285f4;
+}
+
+textarea {
+    font-family: inherit;
+    overflow: auto;
+    resize: none;
+}
+
+.review-text {
+    background-color: white;
+    border: 1px solid #9e9e9e;
+    color: rgba(0,0,0,0.72);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    height: 100%;
+    line-height: 20px;
+    margin: 0;
+    padding: 10px;
+    white-space: pre-wrap;
+    width: 100%;
+}
+
+.rating .rating-star {
+    background: url(https://maps.gstatic.com/places-api/reviews-widget/images/ic_star_outlined_1x_2.png) no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin-right: 11px;
+    width: 30px;
+    z-index: 1;
+}
+
+.rating .rating-star-full {
+    background: url(https://maps.gstatic.com/places-api/reviews-widget/images/ic_star_orange_1x_2.png) no-repeat;
+     z-index: 1;
+}
+.reviewmaincontaier{
+	margin-left: 20px;
+}
+
+.footer-tile {
+    background-color: white;
+    bottom: 0;
+    height: 36px;
+    left: 0;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    position: absolute;
+    right: 0;
+}
+
+div.txtbox{
+    height: expression( this.scrollHeight > 99 ? "100px" : "auto" );
+    max-height: 100px;
+	overflow-y: auto;
+	
+}
+
+.infoarea {
+  align-items: normal;
+  background-color: rgba(0,0,0,0);
+  border-color: rgb(0, 0, 238);
+  border-style: none;
+  box-sizing: content-box;
+  color: rgb(0, 0, 0); 
+  cursor: pointer;
+  display: inline;
+  font: inherit;
+  height: auto;
+  padding: 0;
+  perspective-origin: 0 0;
+  text-align: start;
+  transform-origin: 0 0;
+  width: auto;
+  /* Mozilla specific properties */
+  -moz-appearance: none;
+  /* Webkit specific properties */
+  -webkit-logical-width: auto; /* ignored by Chrome, but here for completeness */
+}
+
+.abtn{
+  height:40px;
+  line-height:40px;  
+  border-radius:3px;
+  border:1px solid;
+  border-color: rgba(0, 0, 0, 1);
+  background-color: transparent;
+  font-size:13px;    
+  color:rgba(0, 0, 0, 1);
+}
+
+.abtn ul {
+  border:1px solid;  
+  border-color: rgba(0, 0, 0, 1);
+  border-top-left-radius: 3px;  
+  border-top-right-radius:3px;
+  border-bottom:0;  
+  
+  bottom:40px;  
+  padding-left:0px;
+  padding-top:5px;
+}
+
+.abtn, .abtn ul li {
+  width:105px;
+  padding-left:20px;
+  padding-right:16px;
+}
+
+.abtn:focus {
+  border-top-left-radius: 0px;  
+  border-top-right-radius:0px;
+  border-top:0px;
+  margin-top:1px;
+  cursor:default;  
+}
+
+.abtn ul li:hover{
+   background-color:rgba(255, 255, 255, 0.2);
+}
+
+/*common */
+.opt-sel {
+  position:relative;  
+  outline: none;
+  cursor:pointer;
+}
+
+.opt-sel ul{
+  position:absolute;  
+  left:-1px; 
+  list-style:none;
+  margin:0;    
+}
+
+.sel-icon {
+  float:right;  
+  font-size:10px;
+}
+
+.sel-icon:after {    
+  content:'▼';
+}
+
+.opt-sel:focus .sel-icon:after{
+  content:'▲';
+}
+
+.opt-sel ul li{    
+  cursor:pointer;
+}
+
+.opt-sel:focus ul {
+  display:block;  
+}
+
+.opt-sel:not(:focus) ul {  
+  display:none;  
+}
+
+

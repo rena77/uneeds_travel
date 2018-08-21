@@ -49,6 +49,7 @@ public class MainController {
 		    req.getSession().setAttribute("prevPage", referrer);
 		return "uneeds_login";
 	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
 		return "uneeds_join";
@@ -63,14 +64,10 @@ public class MainController {
 	 public ModelAndView logincheck(HttpServletRequest req, String usr, String pwd){
 		 	HttpSession session= req.getSession();	 
 	        ModelAndView mav = new ModelAndView();
-	        String referer = req.getHeader("Referer");
 	        String redirectUrl = (String) session.getAttribute("prevPage");
-	        System.out.println("테스트");
 	        
 	        if(service.loginCheck(session, usr, pwd)){ // 로그인 성공
 	            mav.setViewName("redirect:" + redirectUrl);
-	            System.out.println("테스트2");
-	            System.out.println("redirect:" + redirectUrl);
 	            session.removeAttribute(redirectUrl);
 	            }
 	        else{ // 로그인 실패

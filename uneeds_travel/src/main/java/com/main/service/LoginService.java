@@ -14,4 +14,7 @@ public interface LoginService {
 	public uMemberVO viewuMembers(uMemberVO vo);
 	// 회원 로그아웃
 	public void logout(HttpSession session);
+	
+	// api 로그인
+	public int login(String id, String site);
 }

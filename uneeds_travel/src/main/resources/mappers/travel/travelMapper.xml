@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.travel.MemberMapper">
+<mapper namespace="com.travel.travelMapper">
 
 
 	<insert id="t_travelapilist">		
@@ -11,20 +11,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUE (#{contentid}, #{contenttype}, #{mapx}, #{mapy}, #{count}) ON DUPLICATE KEY UPDATE contentid = #{contentid}
 	</insert>
 
-	<insert id= "t_bookmarkinfo">
-		insert into t_bookmark_table (TourMembercode, contentid)
-		select (select mcode from umemeber_table where mid = #{tourmembercode}), #{contentid} from dual
-		where not exists (select * from t_bookmark_table where contentid = #{contentid})
+	<insert id= "t_bookmarkinfo">        
+        insert into t_bookmark_table (TourMembercode, contentid)
+		select (select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}), #{contentid} from dual
+		where not exists (select * from t_bookmark_table where 
+        TourMembercode = (select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}) 
+        and contentid = #{contentid});
 	</insert>
 	
 	<insert id= "t_review_table">
 		insert into t_review_table (TourMembercode, contentid, tourtext, star)
-		values ((select mcode from umemeber_table where mid = #{tourmembercode}), #{contentid}, #{tourtext}, #{star})
+		values ((select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}), #{contentid}, #{tourtext}, #{star})
 	</insert>
 	
-	<select id = "reviewselectinfo">
-		SELECT * FROM t_review_table where contentid = #{contentid};
+	<insert id = "t_member_table">
+		insert into t_member_table  (MCODE, TMname, TMgender, Tmage, TMphone)
+		value  ((select mcode from umemeber_table where mid = ${mid}), ${tmname}, ${tmgender}, ${tmage}, ${tmphone});
+	</insert>
+	
+	<select id = "t_reviewselectinfo" resultType="com.travel.model.ReviewVO">
+		SELECT * FROM t_review_table where contentid = #{contentid}
 	</select>
+	
+	<select id = "t_groubcheck" resultType="com.travel.model.TMemberVO">
+		SELECT b.TourMembercode, b.MCODE, b.TMname, b.TMgender, b.TMage, b.TMphone FROM umemeber_table a, t_member_table b 
+		where (a.mcode = (select mcode from umemeber_table where mid = #{mid}))
+		and (b.mcode = (select mcode from umemeber_table where mid = #{mid}))
+	</select>
+	
 </mapper>
 
 

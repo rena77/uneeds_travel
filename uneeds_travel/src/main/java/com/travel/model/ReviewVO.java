@@ -4,25 +4,25 @@ import java.util.Date;
 
 public class ReviewVO { 
 	
-	String tourmembercode; // mysql -> (int)TourMembercode
-	int mysqltourmembercode; // mysql에서 입력 받을 때 사용
+	int rcode;
+	int tourmembercode; // mysql -> (int)TourMembercode
 	int contentid; // mysql -> contentid
 	String tourtext; // mysql -> tourtext
-	int reviewstar; // mysql -> star
+	int star; // mysql -> star
 	Date tourdate; // 자동 입력
 	
 	// getter / setter
-	public String getTourmembercode() {
+	public int getRcode() {
+		return rcode;
+	}
+	public void setRcode(int rcode) {
+		this.rcode = rcode;
+	}
+	public int getTourmembercode() {
 		return tourmembercode;
 	}
-	public void setTourmembercode(String tourmembercode) {
+	public void setTourmembercode(int tourmembercode) {
 		this.tourmembercode = tourmembercode;
-	}
-	public int getMysqltourmembercode() {
-		return mysqltourmembercode;
-	}
-	public void setMysqltourmembercode(int mysqltourmembercode) {
-		this.mysqltourmembercode = mysqltourmembercode;
 	}
 	public int getContentid() {
 		return contentid;
@@ -36,11 +36,11 @@ public class ReviewVO {
 	public void setTourtext(String tourtext) {
 		this.tourtext = tourtext;
 	}
-	public int getReviewstar() {
-		return reviewstar;
+	public int getStar() {
+		return star;
 	}
-	public void setReviewstar(int reviewstar) {
-		this.reviewstar = reviewstar;
+	public void setStar(int star) {
+		this.star = star;
 	}
 	public Date getTourdate() {
 		return tourdate;
@@ -49,11 +49,11 @@ public class ReviewVO {
 		this.tourdate = tourdate;
 	}
 	
-	// toString
+	//toString
 	@Override
 	public String toString() {
-		return "ReviewVO [tourmembercode=" + tourmembercode + ", mysqltourmembercode=" + mysqltourmembercode
-				+ ", contentid=" + contentid + ", tourtext=" + tourtext + ", reviewstar=" + reviewstar + ", tourdate="
-				+ tourdate + "]";
+		return "ReviewVO [rcode=" + rcode + ", tourmembercode=" + tourmembercode + ", contentid=" + contentid
+				+ ", tourtext=" + tourtext + ", star=" + star + ", tourdate=" + tourdate + "]";
 	}
+
 }

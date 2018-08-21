@@ -2,6 +2,7 @@ package com.main.persistence;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -53,5 +54,14 @@ public class LoginDAOImpl implements LoginDAO{
 		return list;
 	}
 
-	
+	@Override
+	public int login(String id, String site) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mid", id);
+		map.put("lname", site);
+		mysqlSession.selectOne(namespace+".login", map);
+		int result = (int) map.get("usercode");
+		System.out.println("usercode: "+result);
+		return result;
+	}
 }

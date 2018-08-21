@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.travel.model.BookMarkVO;
 import com.travel.model.ReviewVO;
+import com.travel.model.ReviewinsertVO;
+import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
 
 @Repository
@@ -17,7 +19,7 @@ public class TourDAOImpl implements TourDAO {
 	@Inject
 	private SqlSession mysqlSession;
 
-	private static final String namespace = "com.travel.MemberMapper";
+	private static final String namespace = "com.travel.travelMapper";
 
 	
 	@Override
@@ -31,15 +33,25 @@ public class TourDAOImpl implements TourDAO {
 	}
 
 	@Override
-	public void reviewinsertinfo(ReviewVO vo) {
+	public void reviewinsertinfo(ReviewinsertVO vo) {
 		mysqlSession.insert(namespace + ".t_review_table", vo);
+	}
+	
+	@Override
+	public void insertmembercheck(TMemberVO vo) {
+		mysqlSession.insert(namespace + ".t_member_table", vo);
 	}
 
 	@Override
-	public List<ReviewVO> reviewselectinfo() {
-		List<ReviewVO> list = mysqlSession.selectList(namespace + ".reviewselectinfo");
+	public List<ReviewVO> reviewselectinfo(String contentid) {
+		List<ReviewVO> list = mysqlSession.selectList(namespace + ".t_reviewselectinfo", contentid);
 		return list;
 	}
 
+	@Override
+	public List<TMemberVO> membercheckinfo(String mid) {
+		List<TMemberVO> list = mysqlSession.selectList(namespace + ".t_groubcheck", mid);
+		return list;
+	}
 
 }

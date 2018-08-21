@@ -11,8 +11,8 @@
 
 <title>Insert title here</title>
 
-<link rel="stylesheet" type="text/css" href="./resources/css/app.d6157d9993ceb446bea8.css">
-<link rel ="stylesheet" id="gnb_style" type="text/css" href="./resources/css/gnb.css">
+<link rel="stylesheet" type="text/css" href="/resources/travel/css/app.d6157d9993ceb446bea8.css">
+<link rel ="stylesheet" id="gnb_style" type="text/css" href="/resources/travel/css/gnb.css">
 
 	<body>
 	<%
@@ -20,7 +20,7 @@
 		if (session.getAttribute("userid") == null) {
 	%>
 		<div class="header_inner">
-			<h1><img class="logo"  src="./resources/img/KakaoTalk_20180710_143413418.png">
+			<h1><img class="logo"  src="/resources/travel/img/KakaoTalk_20180710_143413418.png">
 			</h1>
 			<div class="api_naver_gnb">
 				<div id="gnb" class="">
