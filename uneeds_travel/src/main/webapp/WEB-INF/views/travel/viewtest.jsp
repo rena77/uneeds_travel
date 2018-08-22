@@ -50,7 +50,7 @@ var infowindows = []; // 정보 배열
 				'<div class= iw_inner>',
 				'   <h3>'+ item.find("title").text()+ '</h3>',
 				'   <p>'+ item.find("addr1").text()+ '<br />',
-				'       <img src="'+ item.find("firstimage").text()+ '"width="55" height="55" alt="'+ item.find("title").text()+ '" class="thumb" /><br />',
+				'       <img src="'+ item.find("firstimage").text()+ '" width="55" height="55" "onerror"= "this.src"="/resources/travel/img/noimage.gif" alt="" class="thumb" /><br />',
 				'       '+ item.find("tel").text()+ '<br />',
 				'		<INPUT TYPE="hidden" NAME="hid1" VALUE="'+ item.find("contentid").text()+ '">',
         		'		<INPUT TYPE="hidden" NAME="hid2" VALUE="'+ item.find("contenttypeid").text()+ '">',
@@ -70,7 +70,7 @@ var infowindows = []; // 정보 배열
 			    	position: position.destinationPoint(90, 15),
 			    	map: map,
 			    	icon: {
-			        	url: HOME_PATH +'/resources/img/food2.png',
+			        	url: '/resources/travel/img/food2.png',
 			        	size: new naver.maps.Size(50, 50),
 			        	origin: new naver.maps.Point(0, 0),
 			        	anchor: new naver.maps.Point(25, 26)
@@ -195,7 +195,8 @@ var infowindows = []; // 정보 배열
 
 		var ullist = $("#listdetail");
 		ullist.empty();
-		ullist.append("<input type='hidden' id = 'detailcontentid' name ='detailcontentid' class = 'detailcontentid' value = '" + item.find("contentid").text() + "'>" +
+		ullist.append("<h3><span> 기본 정보 </span></h3>"+
+					"<input type='hidden' id = 'detailcontentid' name ='detailcontentid' class = 'detailcontentid' value = '" + item.find("contentid").text() + "'>" +
 					"<input type='hidden' id = 'detailcontenttypeid' name ='detailcontenttypeid' class = 'detailcontenttypeid' value = '" + item.find("contenttypeid").text() + "'>");
 		if (item.find("accomcount").text() != '' && item.find("accomcount").text() != '0') {ullist.append("<span>수용인원 : " + item.find("accomcount").text() + "</span></br>")};
 		if (item.find("chkbabycarriage").text() != '' && item.find("chkbabycarriage").text() != '0') {ullist.append("<span>유모차대여 정보 : " + item.find("chkbabycarriage").text() + "</span></br>")};
@@ -783,18 +784,25 @@ function reviewmodal(){
 					"<div class=list_item_inner>" +
 						"</div>" +
 					"<div class=list_item_inner>" +
-						"<h3><span> 함께 검색한 장소 </span></h3>" +
-						"</div>" +
+						"<div class='flick_container' style='height: 150px; z-index: 1;'>"+
+							"<a class='btn_direction btn_prev' id = 'recommend_prev' aria-label='이전' role='button' onclick='javascript:moverecommend(this);'>"+
+							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>"+
+							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>" +
+							"<div class='flick_wrapper list_card' id = 'recommend' role='list' style='position: absolute; left: 0px; top: 0px; height: 100%; transform: translate(0px, 0px);'></div>" +
+							"<a class='btn_direction btn_next' id = 'recommend_next' aria-label='다음' role='button' onclick='javascript:moverecommend(this);'>" +
+							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>" +
+							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a></div>" +
+							"</div>" +
 					"<div class=list_item_inner>" +
 						"<h3>리뷰 <input class = 'infoarea' type = 'button'  name='input1' onclick= javascript:reviewmodal(); value ='리뷰쓰기' ></h3>" +
 						"<div class='flick_container' style='height: 150px; z-index: 1;'>"+
-						"<a class='btn_direction btn_prev' aria-label='이전' role='button' onclick='javascript:move(this);'>"+
-						"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>"+
-						"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
-						"<div><div class='flick_wrapper list_card' id='review_list_right' role='list' style='position: absolute; left: 0px; top: 0px; height: 100%; transform: translate(0px, 0px);'></div></div>"+
-						"<a class='btn_direction btn_next' aria-label='다음' role='button' onclick='javascript:move(this);'>" +
-						"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>" +
-						"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
+							"<a class='btn_direction btn_prev' id = 'reviewlist_prev' aria-label='이전' role='button' onclick='javascript:move(this);'>"+
+							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>"+
+							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
+							"<div><div class='flick_wrapper list_card' id='review_list_right' role='list' style='position: absolute; left: 0px; top: 0px; height: 100%; transform: translate(0px, 0px);'></div></div>"+
+							"<a class='btn_direction btn_next' id = 'reviewlist_next' aria-label='다음' role='button' onclick='javascript:move(this);'>" +
+							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>" +
+							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
 						"</div><input type=button value='되돌아가기' onClick='detailshowhide();'></div></div></li>");
 		reviewstar(contentid);
 	}
@@ -832,6 +840,7 @@ function	reviewstar(contentid){
 						"</div></div>")
 			}
 		move();
+		moverecommend();
 		},
 		error : function(request, status, error) { //에러 함수
 			alert("ERROR");
@@ -842,10 +851,10 @@ function	reviewstar(contentid){
 
 <script>	// review 버튼 클릭 시 review 이동 스크립트
 	var reviewlistlength = 0;
+	var recommendlistlength = 0;
 	
 	function move(click) {
-		
-		var $img = $(".list_card");
+
 		var leftright = $(click).attr("aria-label");
 		reviewlist = document.getElementById("review_list_right");  //review의 list 객체 받아오기
 		
@@ -859,20 +868,50 @@ function	reviewstar(contentid){
 		}
 		
 		if (reviewlist.offsetWidth < 564){
-				$(".btn_prev").hide();
-				$(".btn_next").hide();
+				$("#reviewlist_prev").hide();
+				$("#reviewlist_next").hide();
 		}else if(reviewlistlength >= 0){	//버튼 클릭 쇼 하이드
-			$(".btn_prev").hide();
-			$(".btn_next").show();
+			$("#reviewlist_prev").hide();
+			$("#reviewlist_next").show();
 		} else if (reviewlistlength < -(reviewlist.offsetWidth - 564)){
-			$(".btn_next").hide();
-			$(".btn_prev").show();
+			$("#reviewlist_next").hide();
+			$("#reviewlist_prev").show();
 		}
 		else{
-			$(".btn_prev").show();
-			$(".btn_next").show();
+			$("#reviewlist_prev").show();
+			$("#reviewlist_next").show();
 		}
-	};
+	}
+	
+	function moverecommend(click) {
+		
+		var leftright = $(click).attr("aria-label");
+		recommendlist = document.getElementById("recommend");  //review의 list 객체 받아오기
+		
+		if(leftright == "다음"){
+			reviewlistlength -= 282; 
+			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)";     //왼쪽으로 이동
+		}
+		if(leftright == "이전"){
+			reviewlistlength += 282; 
+			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)"; 		//오른쪽으로 이동
+		}
+		
+		if (recommendlist.offsetWidth < 564){
+				$("#recommend_prev").hide();
+				$("#recommend_next").hide();
+		}else if(recommendlistlength >= 0){	//버튼 클릭 쇼 하이드
+			$("#recommend_prev").hide();
+			$("#recommend_next").show();
+		} else if (recommendlistlength < -(recommendlist.offsetWidth - 564)){
+			$("#recommend_next").hide();
+			$("#recommend_prev").show();
+		}
+		else{
+			$("#recommend_prev").show();
+			$("#recommend_next").show();
+		}
+	}
 </script>
 
 <script> // 버튼 눌러서 값 가져오는 부분
@@ -895,6 +934,7 @@ function listpage1(listdata){
 				detailedinformationlist(data);
 				detailshowhide();
 				listClickHandler(number);
+				bookmarkrecommend();
 			},
 			error : function(request, status, error){ //에러 함수
 				alert("ERROR");
@@ -947,6 +987,7 @@ function listpage1(listdata){
 				success :	function(data){
 					detailedinformat(data);
 					detailedinformationlist(data);
+					bookmarkrecommend();
 				},
 				error : function(request, status, error){ //에러 함수
 					alert("ERROR");
@@ -962,12 +1003,18 @@ function listpage1(listdata){
 	}
 </script>
 
+<%!
+public static final String IMG_PATH = "/resources/travel/img/noimage.gif";
+
+%>
+
 <!--  시도 구분 -->
 <script>
 	// 시군구 api를 통해서 list를 왼쪽 폴더창에 보여줌
 	function bindList(data){
 		var ul = $("#list_place_col");
 		var items = $(data).find("item");
+
 			ul.empty();
 			for (var i = 0; i < items.length; i++){
 				item = $(items[i]);
@@ -975,8 +1022,8 @@ function listpage1(listdata){
 					ul.append("<li 'id'= '"+ item.find("title").text() + "' class= list_item type_restaurant>" +  
 									"<div class = list_item_inner>" +
 		    							"<a class= 'thumb_area fr' href= '" + item.find("firstimage").text() + "' target=_blank>" +
-										"<div class= thumb style = 'z-index: 0;''>" +
-											"<img src='" + item.find("firstimage").text() + "' alt= '"+ item.find("title").text()+ "' width='100' height='100'>" +
+										"<div class= thumb style = 'z-index: 0;'>" +
+											"<img src= '" + item.find("firstimage").text() + "' width='100' height='100' onerror = 'this.src'='/resources/travel/img/noimage.gif'  alt=''>" +
 										"</div>" +
 										"</a>" +
 										"<form>"+
@@ -990,7 +1037,7 @@ function listpage1(listdata){
 												"<input type='hidden' name = 'data1' class = 'data1' value = '"+ i +"'>" +
 												"<input type='hidden' name = 'data2' class = 'data2' value = '" + item.find("contentid").text() + "'>" +
 												"<input type='hidden' name = 'data3' class = 'data3' value = '" + item.find("contenttypeid").text() + "'>" +
-												"<input type='hidden' id='gnb_bookmark_" + i +"' onclick= javascript:listpage3(this.form); >"+
+												"<input type='hidden' id='gnb_bookmark_" + i +"' onclick= javascript:listpage3(this.form); >"+s
 											"</div></form>" +
 											"<div><span>콘텐츠 조회수 : " + item.find("readcount").text() + "</span></div>"+
 											"</div></li>");
@@ -1146,7 +1193,7 @@ window.onresize = funLoad;
 </script>
 <!-- 높이 자동 조정 -->
 
-<script>	// 추가 정보 입력 창
+<script>	// 가입 시 추가 정보 입력 창
 	function additionmemberinfo(data){
 					
 		var username = $("#selectusername").val(); 
@@ -1172,33 +1219,101 @@ window.onresize = funLoad;
 		
 		var modal = document.getElementById("myadditionmemberModal");
 		modal.style.display = "none";
-		alert("등록되셨습니다.");
+		alert()
 		}
 	}
 </script>
 
-</head>
-
-<body class="place_list">
-
-	<%						// 처음 로그인 시 추가 정보 입력 조건문
-		if (id != null) {
-	%>
-		<script>
-		$(function(){
-			$.ajax({
-				url : "membercheck",
-				type : 'get',
-				data : {
-					mid : '<%=id%>'},
-				success : function(data) {
-					if(data[0] == null){
-						var modal = document.getElementById("myadditionmemberModal");
-						modal.style.display = "block";
+<script>	// 나이로 추천지 검색하기
+	function bookmarkrecommend(){
+		$.ajax({
+			url : "bookmarkrecommend",
+			type : 'get',
+			async : false,
+			data : {
+				mid : '<%=id%>'},
+			success : function(data) {
+				
+				var ullist = $("#recommend");
+				ullist.empty();
+				ullist.append("<h3><span> 추천 검색 </span></h3>");
+				
+				if(data[0] == null){
+					ullist.append("<span>추천 검색이 없습니다.</span>");
+				}else{
+					for (var i = 0; i < data.length; i++) {
+						$.ajax({
+							url : "areabase",
+							type : 'get',
+							async : false,
+							data : {
+								"contentid" : data[i].contentid
+							},
+							success : function(datalist) {
+								for (var i = 0; i < datalist.length; i++) {
+									overview(datalist[i].contentid, datalist[i].contenttype)
+								}
+							},error : function(request, status, error){ //에러 함수
+								alert("ERROR");
+							}
+						});
 					}
 				}
-			});
-		})
+			}
+		});
+	}
+	
+	function overview(contentid, contenttype){
+		var ullist = $("#recommend");
+				
+		$.ajax({
+			url : "overviewinformaiton",
+			type : 'get',
+			datatype : 'json',
+			data : {
+				"contentId" : contentid,
+				"contenttype" : contenttype
+			},
+			success : function(datalist) {
+				
+				var items = $(datalist).find("item");
+				
+				for (var i = 0; i < items.length; i++){
+					item = $(items[i]);
+						ullist.append("<div class='flick_content' role='listItem'>" +
+						"<div class='list_item' role='listitem'>" +
+							"<div class='thumb' style='z-index: 0;'>" +
+							"<img src= '" + item.find("firstimage").text()+ "' width='100' height='100' onerror= 'this.src'='/resources/travel/img/noimage.gif' alt=''></div>"+
+							"<div class='txtdiv' style='text-align: center;'><div class='txtbox' style='width:228px;min-height:25px;'>"+ item.find("title").text()+ "</div>"+
+							"</div></div></div>"
+					);
+				}
+			},error : function(request, status, error){ //에러 함수
+				alert("ERROR");
+			}
+		});
+	};
+</script>
+
+</head>
+<body class="place_list">
+							
+	<%if (id != null) { // 처음 로그인 시 추가 정보 입력 조건문%>
+		<script>
+			$(function(){
+				$.ajax({
+					url : "membercheck",
+					type : 'get',
+					data : {
+						mid : '<%=id%>'},
+					success : function(data) {
+						if(data[0] == null){
+							var modal = document.getElementById("myadditionmemberModal");
+							modal.style.display = "block";
+						}
+					}
+				});
+			})
 		</script>
 	<%
 	} else {

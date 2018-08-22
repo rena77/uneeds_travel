@@ -7,6 +7,7 @@ import com.travel.model.ReviewVO;
 import com.travel.model.ReviewinsertVO;
 import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
+import com.travel.model.bookmarkrecommendVO;
 
 public interface TourDAO {
 	public void insertTravelApiList(TravelareainfoVO vo);
@@ -23,6 +24,12 @@ public interface TourDAO {
 	// review 값 불러오기(select)
 	public List<ReviewVO> reviewselectinfo(String contentid);
 
-	// memeber 값 찾기
+	// memeber 값 찾기(select)
 	public List<TMemberVO> membercheckinfo(String mid);
+	
+	// bookmark 추천 값 찾기
+	public List<bookmarkrecommendVO> bookmarkrecommendinfo(String mid);
+	
+	// contentid로 정보 가져오기
+	public List<TravelareainfoVO> areabaseinfo(int contentid);
 }

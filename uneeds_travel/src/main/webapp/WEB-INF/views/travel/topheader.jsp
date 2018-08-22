@@ -41,7 +41,7 @@
 		String id = (String)session.getAttribute("userid"); 
 	%>
  		<div class="header_inner">
-			<h1><img class="logo"  src="./resources/img/KakaoTalk_20180710_143413418.png">
+			<h1><img class="logo"  src="/resources/travel/img/KakaoTalk_20180710_143413418.png">
 			</h1>
 			<div class="api_naver_gnb">
 				<div id="gnb" class="">

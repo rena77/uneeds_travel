@@ -25,8 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<insert id = "t_member_table">
-		insert into t_member_table  (MCODE, TMname, TMgender, Tmage, TMphone)
-		value  ((select mcode from umemeber_table where mid = ${mid}), ${tmname}, ${tmgender}, ${tmage}, ${tmphone});
+		insert into t_member_table (MCODE, TMname, TMgender, Tmage, TMphone) values ((select mcode from umemeber_table where mid = #{mid}), #{tmname}, #{tmgender}, #{tmage}, #{tmphone})
 	</insert>
 	
 	<select id = "t_reviewselectinfo" resultType="com.travel.model.ReviewVO">
@@ -37,6 +36,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT b.TourMembercode, b.MCODE, b.TMname, b.TMgender, b.TMage, b.TMphone FROM umemeber_table a, t_member_table b 
 		where (a.mcode = (select mcode from umemeber_table where mid = #{mid}))
 		and (b.mcode = (select mcode from umemeber_table where mid = #{mid}))
+	</select>
+	
+	<select id ="t_bookmarkrecommend" resultType="com.travel.model.bookmarkrecommendVO">
+		select *, count(*) as num from t_bookmark_table where TourMembercode 
+		in (select mcode from t_member_table where mcode != (select mcode from umemeber_table where mid = #{mid}) and TMage between 
+		(SELECT truncate((select tmage from t_member_table where mcode = (select mcode from umemeber_table where mid = #{mid})), -1) FROM DUAL) 
+		and (SELECT truncate((select tmage from t_member_table where mcode = (select mcode from umemeber_table where mid = #{mid}))+10, -1) FROM DUAL))
+		GROUP BY contentid HAVING num>1;
+	</select>
+	
+	<select id ="areabaseinfo" resultType="com.travel.model.TravelareainfoVO">
+		select * from t_tgroub_table where contentid = #{contentid}
 	</select>
 	
 </mapper>

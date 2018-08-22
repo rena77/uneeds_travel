@@ -52,10 +52,11 @@ public class TMemberVO {
 	public void setTmphone(String tmphone) {
 		this.tmphone = tmphone;
 	}
-	@Override
 	
+	@Override
 	public String toString() {
 		return "TMemberVO [tourmembercode=" + tourmembercode + ", mcode=" + mcode + ", tmname=" + tmname + ", tmgender="
-				+ tmgender + ", tmage=" + tmage + ", tmphone=" + tmphone + "]";
+				+ tmgender + ", tmage=" + tmage + ", tmphone=" + tmphone + ", mid=" + mid + "]";
 	}
+	
 }

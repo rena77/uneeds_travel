@@ -165,7 +165,7 @@ h2 {
 h3 {
   font-size: 20px;
   color: #26304d;
-  padding: 0;
+  padding-bottom: 8px;
 }
 .api_naver_gnb {
  position:absolute;

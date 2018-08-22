@@ -12,6 +12,7 @@ import com.travel.model.ReviewVO;
 import com.travel.model.ReviewinsertVO;
 import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
+import com.travel.model.bookmarkrecommendVO;
 
 @Repository
 public class TourDAOImpl implements TourDAO {
@@ -51,6 +52,18 @@ public class TourDAOImpl implements TourDAO {
 	@Override
 	public List<TMemberVO> membercheckinfo(String mid) {
 		List<TMemberVO> list = mysqlSession.selectList(namespace + ".t_groubcheck", mid);
+		return list;
+	}
+
+	@Override
+	public List<bookmarkrecommendVO> bookmarkrecommendinfo(String mid) {
+		List<bookmarkrecommendVO> list = mysqlSession.selectList(namespace + ".t_bookmarkrecommend", mid);
+		return list;
+	}
+
+	@Override
+	public List<TravelareainfoVO> areabaseinfo(int contentid) {
+		List<TravelareainfoVO> list = mysqlSession.selectList(namespace + ".areabaseinfo", contentid);
 		return list;
 	}
 
