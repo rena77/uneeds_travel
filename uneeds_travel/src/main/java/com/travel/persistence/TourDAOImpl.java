@@ -32,6 +32,21 @@ public class TourDAOImpl implements TourDAO {
 	public void bookmarkinsertinfo(BookMarkVO vo) {
 		mysqlSession.insert(namespace + ".t_bookmarkinfo", vo);
 	}
+	
+	@Override
+	public void goodmarkinsertinfo(BookMarkVO vo) {
+		mysqlSession.insert(namespace + ".t_goodmarkinfo", vo);
+	}
+	
+	@Override
+	public void bookmarkdelete(BookMarkVO vo) {
+		mysqlSession.insert(namespace + ".t_bookmarkdelete", vo);
+	}
+
+	@Override
+	public void goodmarkdelete(BookMarkVO vo) {
+		mysqlSession.insert(namespace + ".t_goodmarkdelete", vo);
+	}
 
 	@Override
 	public void reviewinsertinfo(ReviewinsertVO vo) {
@@ -65,6 +80,44 @@ public class TourDAOImpl implements TourDAO {
 	public List<TravelareainfoVO> areabaseinfo(int contentid) {
 		List<TravelareainfoVO> list = mysqlSession.selectList(namespace + ".areabaseinfo", contentid);
 		return list;
+	}
+
+	@Override
+	public List<bookmarkrecommendVO> nologinrecommend() {
+		List<bookmarkrecommendVO> list = mysqlSession.selectList(namespace + ".nologinrecommend");
+		return list;
+	}
+
+	@Override
+	public Boolean checkboxbookmarkview(String id, int contentid) {
+		BookMarkVO vo = new BookMarkVO();
+		
+		vo.setContentid(contentid);
+		vo.setTourmembercode(id);
+		
+		List<BookMarkVO> list = mysqlSession.selectList(namespace + ".checkboxbookmarkview", vo);
+		
+		if(list.isEmpty()) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+	@Override
+	public Boolean checkboxgoodmarkview(String id, int contentid) {
+		BookMarkVO vo = new BookMarkVO();
+		
+		vo.setContentid(contentid);
+		vo.setTourmembercode(id);
+		
+		List<BookMarkVO> list = mysqlSession.selectList(namespace + ".checkboxgoodmarkview", vo);
+		
+		if(list.isEmpty()) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 }

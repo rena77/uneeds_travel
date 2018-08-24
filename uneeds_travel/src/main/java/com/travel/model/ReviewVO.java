@@ -5,7 +5,7 @@ import java.util.Date;
 public class ReviewVO { 
 	
 	int rcode;
-	int tourmembercode; // mysql -> (int)TourMembercode
+	String mid; // 
 	int contentid; // mysql -> contentid
 	String tourtext; // mysql -> tourtext
 	int star; // mysql -> star
@@ -18,11 +18,11 @@ public class ReviewVO {
 	public void setRcode(int rcode) {
 		this.rcode = rcode;
 	}
-	public int getTourmembercode() {
-		return tourmembercode;
+	public String getMid() {
+		return mid;
 	}
-	public void setTourmembercode(int tourmembercode) {
-		this.tourmembercode = tourmembercode;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
 	public int getContentid() {
 		return contentid;
@@ -52,7 +52,7 @@ public class ReviewVO {
 	//toString
 	@Override
 	public String toString() {
-		return "ReviewVO [rcode=" + rcode + ", tourmembercode=" + tourmembercode + ", contentid=" + contentid
+		return "ReviewVO [rcode=" + rcode + ", mid=" + mid + ", contentid=" + contentid
 				+ ", tourtext=" + tourtext + ", star=" + star + ", tourdate=" + tourdate + "]";
 	}
 

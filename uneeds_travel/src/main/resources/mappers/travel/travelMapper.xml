@@ -19,6 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         and contentid = #{contentid});
 	</insert>
 	
+	<insert id= "t_goodmarkinfo">        
+        insert into t_good_table (TourMembercode, contentid)
+		select (select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}), #{contentid} from dual
+		where not exists (select * from t_good_table where 
+        TourMembercode = (select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}) 
+        and contentid = #{contentid});
+	</insert>
+	
 	<insert id= "t_review_table">
 		insert into t_review_table (TourMembercode, contentid, tourtext, star)
 		values ((select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid =  #{tourmembercode}), #{contentid}, #{tourtext}, #{star})
@@ -29,7 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id = "t_reviewselectinfo" resultType="com.travel.model.ReviewVO">
-		SELECT * FROM t_review_table where contentid = #{contentid}
+		select c.Rcode, a.mid, c.tourtext, c.star, c.tourdate, c.contentid from umemeber_table a, t_member_table b, t_review_table c 
+		where a.mcode = b.mcode and b.TourMembercode = c.TourMembercode and contentid = #{contentid} ORDER BY Rcode DESC;
 	</select>
 	
 	<select id = "t_groubcheck" resultType="com.travel.model.TMemberVO">
@@ -46,10 +55,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY contentid HAVING num>1;
 	</select>
 	
+	<select id ="nologinrecommend" resultType="com.travel.model.bookmarkrecommendVO">
+		select *, count(*) as num from t_bookmark_table GROUP BY contentid HAVING num>1;
+	</select>
+	
 	<select id ="areabaseinfo" resultType="com.travel.model.TravelareainfoVO">
 		select * from t_tgroub_table where contentid = #{contentid}
 	</select>
 	
+	<select id ="checkboxbookmarkview" resultType="com.travel.model.BookMarkVO">
+		select * from t_bookmark_table where 
+		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode})
+    	and contentid = #{contentid}
+	</select>
+	
+	<select id ="checkboxgoodmarkview" resultType="com.travel.model.BookMarkVO">
+		select * from t_good_table where 
+		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode})
+    	and contentid = #{contentid}
+	</select>
+	
+	<delete id="t_bookmarkdelete">
+		delete from t_bookmark_table where
+		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode}) and  contentid = #{contentid}
+	</delete>
+	<delete id="t_goodmarkdelete">
+		delete from t_good_table where
+		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode}) and  contentid = #{contentid}
+	</delete>
 </mapper>
 
 

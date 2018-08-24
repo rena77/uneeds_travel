@@ -352,6 +352,60 @@ public class HomeController {
 		return states;
 	}
 	
+	/* 즐겨찾기 삭제 */
+	@RequestMapping(value = "t_bookmarkdelete", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertbookmarkdelete(HttpServletRequest r, BookMarkVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.bookmarkdelete(vo);
+		
+		return states;
+	}
+	
+	/* 좋아요 저장 */
+	@RequestMapping(value = "t_goodmarkinfo", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertgoodmarkinfo(HttpServletRequest r, BookMarkVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.goodmarkinsertinfo(vo);
+		
+		return states;
+	}
+	
+	/* 좋아요 삭제 */
+	@RequestMapping(value = "t_goodmarkdelete", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertgoodmarkdelete(HttpServletRequest r, BookMarkVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.goodmarkdelete(vo);
+		
+		return states;
+	}
+	
 	/* 리뷰 정보 저장 */
 	@RequestMapping(value = "t_reviewinsert", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> insertreviewinfo(HttpServletRequest r, ReviewinsertVO vo) {
@@ -408,9 +462,33 @@ public class HomeController {
 		return dao.bookmarkrecommendinfo(mid);
 	}
 	
+	/* 비 로그인 시 추천 여행지 추천 */
+	@RequestMapping(value = "/nologinrecommend", method = RequestMethod.GET)
+	public @ResponseBody List<bookmarkrecommendVO> nologinrecommend() {
+		return dao.nologinrecommend();
+	}
+	
 	/* 지역 기반 자료 찾기 */
 	@RequestMapping(value = "/areabase", method = RequestMethod.GET)
 	public @ResponseBody List<TravelareainfoVO> areabaseinfo(@RequestParam("contentid") int contentid) {
 		return dao.areabaseinfo(contentid);
+	}
+	
+	/* 좋아요, bookmark check 표시용*/
+	@RequestMapping(value = "/checkboxbookmarkview", method = RequestMethod.GET)
+	public @ResponseBody Boolean checkboxbookmarkview(HttpServletRequest httpServletRequest) {
+		String id = httpServletRequest.getParameter("mid");
+		String i = httpServletRequest.getParameter("contentid");
+		int contentid = Integer.parseInt(i);
+		return dao.checkboxbookmarkview(id, contentid);
+	}
+	
+	/* 좋아요, bookmark check 표시용*/
+	@RequestMapping(value = "/checkboxgoodmarkview", method = RequestMethod.GET)
+	public @ResponseBody Boolean checkboxgoodmarkview(HttpServletRequest httpServletRequest) {
+		String id = httpServletRequest.getParameter("mid");
+		String i = httpServletRequest.getParameter("contentid");
+		int contentid = Integer.parseInt(i);
+		return dao.checkboxgoodmarkview(id, contentid);
 	}
 }

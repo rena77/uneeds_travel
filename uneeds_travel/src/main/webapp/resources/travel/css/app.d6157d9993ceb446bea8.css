@@ -534,8 +534,8 @@ h3 {
  position:absolute;
  top:50%;
  z-index:2020;
- width:48px;
- height:48px;
+ width:40px;
+ height:40px;
  margin-top:-24px;
  border:1px solid rgba(0,0,0,0.06);
  border-radius:50%;
@@ -632,7 +632,8 @@ h3 {
  padding:16px 30px;
  border-bottom:1px solid #dce0e3;
  background:#fff;
- box-sizing:border-box
+ box-sizing:border-box;
+ z-index: 0;
 }
 .filter_area .dimmed {
  position:fixed;
@@ -1514,7 +1515,7 @@ h3 {
  color:#0abe16
 }
 .placemap_area .list_place_col1 .list_item {
- padding:0 0 0 30px;
+ padding:0 0 0 20px;
  line-height:22px
 }
 .placemap_area .list_place_col1 .list_item.active {
@@ -3082,8 +3083,9 @@ h3 {
  margin:0 auto
 }
 .func_btn_area {
- padding-top:24px;
- border-top:1px solid #ecf0f2
+ margin-left : -40px;
+ padding-bottom:24px;
+ border-bottom:1px solid #ecf0f2
 }
 .func_btn_area .list_func_btn {
  text-align:center
@@ -3094,7 +3096,7 @@ h3 {
 .func_btn_area .list_func_btn .list_item+.list_item::before {
  display:inline-block;
  width:1px;
- height:51px;
+ height:0px;
  margin-top:0px;
  background:#ecf0f2;
  vertical-align:top;
@@ -3102,7 +3104,7 @@ h3 {
 }
 .func_btn_area .list_func_btn .btn {
  display:inline-block;
- width:120px;
+ width:80px;
  font-weight:bold;
  color:#0abe16;
  text-align:center
@@ -7087,7 +7089,6 @@ h3 {
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
 	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
 	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
     
@@ -7095,11 +7096,12 @@ h3 {
 .modal-content {
 	background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
-    padding-bottom: 0.5px;
-    padding-top: 0.5px;
-    border: 1px solid #888;
+    padding: 5px;
+    border: 3px solid #fff;
     width: 600px; /* Could be more or less, depending on screen size */
-    z-index: 1;          
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
 }
 /* The Close Button */
 .modal-close {
@@ -7125,8 +7127,9 @@ h3 {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    padding-left : 5px;
+    padding-right: 5px;
     height: 100%;
-    padding-left: 56px;
     width: 100%;
 }
 
@@ -7172,7 +7175,7 @@ textarea {
      z-index: 1;
 }
 .reviewmaincontaier{
-	margin-left: 20px;
+	margin: 10px
 }
 
 .footer-tile {
@@ -7199,7 +7202,7 @@ div.txtbox{
   border-color: rgb(0, 0, 238);
   border-style: none;
   box-sizing: content-box;
-  color: rgb(0, 0, 0); 
+  color: rgb(0, 0, 238); 
   cursor: pointer;
   display: inline;
   font: inherit;
@@ -7295,4 +7298,115 @@ div.txtbox{
   display:none;  
 }
 
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 3px;
+}
 
+.button5 {
+    background-color: white;
+    color: black;
+    border: 1px solid #555555;
+}
+
+.button5:hover {
+    background-color: #555555;
+    color: white;
+}
+
+svg #heart{
+cursor:pointer; overflow:visible; width:20px;
+transform-origin:center; animation:animateHeartOut .3s linear forwards;
+}
+
+h2{font-size:14px; font-weight:400; color:#242424; text-align: center; margin-top: -15px;}
+
+svg #main-circ{
+transform-origin:29.5px 29.5px;
+}
+
+input[id="checkbox"]{
+        display: none;
+}
+
+input[id="checkbox"]:checked + label svg  #heart{
+       transform:scale(.2); fill:#E2264D; animation:animateHeart .3s linear forwards .25s;
+}
+
+input[id="checkbox"]:checked + label svg  #main-circ{
+       ransition:all 2s; animation:animateCircle .3s linear forwards; opacity:1;
+}
+
+ @keyframes animateCircle{
+  40%{transform:scale(10); opacity:1; fill:#DD4688;}
+  55%{transform:scale(11); opacity:1; fill:#D46ABF;}
+  65%{transform:scale(12); opacity:1; fill:#CC8EF5;}
+  75%{transform:scale(13); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.5;}
+  85%{transform:scale(17); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.2;}
+  95%{transform:scale(18); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.1;}
+  100%{transform:scale(19); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:0;}
+}
+
+@keyframes animateHeart{
+  0%{transform:scale(.2);}
+  40%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+@keyframes animateHeartOut{
+  0%{transform:scale(1.4);}
+  100%{transform:scale(1);}
+}
+
+svg #checkboxstarpath{
+cursor:pointer; overflow:visible; width:60px;
+transform-origin:center; animation:animateStarOut .3s linear forwards;
+}
+
+svg #main-circ{
+transform-origin:29.5px 29.5px;
+
+}
+
+input[id="checkboxstar"]{
+        display: none;
+}
+
+input[id="checkboxstar"]:checked + label svg  #checkboxstarpath{
+       transform:scale(.2); fill:#fffe14d1; animation:animateStar .3s linear forwards .25s;
+}
+
+input[id="checkboxstar"]:checked + label svg  #main-circ{
+       ransition:all 2s; animation:animateStarCircle .3s linear forwards; opacity:1;
+}
+
+ @keyframes animateStarCircle{
+  40%{transform:scale(10); opacity:1; fill:#DD4688;}
+  55%{transform:scale(11); opacity:1; fill:#D46ABF;}
+  65%{transform:scale(12); opacity:1; fill:#CC8EF5;}
+  75%{transform:scale(13); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.5;}
+  85%{transform:scale(17); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.2;}
+  95%{transform:scale(18); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:.1;}
+  100%{transform:scale(19); opacity:1; fill:transparent; stroke:#CC8EF5; stroke-width:0;}
+}
+
+@keyframes animateStar{
+  0%{transform:scale(.2);}
+  40%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+@keyframes animateStarOut{
+  0%{transform:scale(1.4);}
+  100%{transform:scale(1);}
+}
