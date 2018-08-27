@@ -12,6 +12,7 @@ import com.travel.model.ReviewVO;
 import com.travel.model.ReviewinsertVO;
 import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
+import com.travel.model.UserinfoVO;
 import com.travel.model.bookmarkrecommendVO;
 
 @Repository
@@ -40,12 +41,12 @@ public class TourDAOImpl implements TourDAO {
 	
 	@Override
 	public void bookmarkdelete(BookMarkVO vo) {
-		mysqlSession.insert(namespace + ".t_bookmarkdelete", vo);
+		mysqlSession.delete(namespace + ".t_bookmarkdelete", vo);
 	}
 
 	@Override
 	public void goodmarkdelete(BookMarkVO vo) {
-		mysqlSession.insert(namespace + ".t_goodmarkdelete", vo);
+		mysqlSession.delete(namespace + ".t_goodmarkdelete", vo);
 	}
 
 	@Override
@@ -120,4 +121,29 @@ public class TourDAOImpl implements TourDAO {
 		}
 	}
 
+	@Override
+	public List<UserinfoVO> userinfolist(String mid, String infonumber) {
+		
+		System.out.println(mid);
+		System.out.println(infonumber);
+				
+		if(infonumber.equals("1")) {
+			List<UserinfoVO> list = mysqlSession.selectList(namespace + ".userinforeview", mid);
+			System.out.println("1 : " + list);
+			return list;
+		}else if (infonumber.equals("2")) {
+			List<UserinfoVO> list = mysqlSession.selectList(namespace + ".userinforebookmark", mid);
+			System.out.println("2 : " + list);
+			return list;
+		}else{
+			List<UserinfoVO> list = mysqlSession.selectList(namespace + ".userinforegood", mid);
+			System.out.println("3 : " + list);
+			return list;
+		}
+	}
+
+	@Override
+	public void reveiwdelete(UserinfoVO vo) {
+		mysqlSession.delete(namespace + ".t_reviewdelete", vo);
+	}
 }

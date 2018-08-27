@@ -7,6 +7,7 @@ import com.travel.model.ReviewVO;
 import com.travel.model.ReviewinsertVO;
 import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
+import com.travel.model.UserinfoVO;
 import com.travel.model.bookmarkrecommendVO;
 
 public interface TourDAO {
@@ -27,6 +28,9 @@ public interface TourDAO {
 	// review (리뷰) 값 insert
 	public void reviewinsertinfo(ReviewinsertVO vo);
 	
+	// review (리뷰) 값 insert
+	public void reveiwdelete(UserinfoVO vo);
+	
 	// 가입시 추가 정보 값 insert
 	public void insertmembercheck(TMemberVO vo);
 	
@@ -45,9 +49,13 @@ public interface TourDAO {
 	// contentid로 정보 가져오기
 	public List<TravelareainfoVO> areabaseinfo(int contentid);
 	
+	// 리스트 가져오기
+	public List<UserinfoVO> userinfolist(String userid, String userwrite);
+	
 	// 즐겨찾기가 있는지 확인
 	public Boolean checkboxbookmarkview(String id, int contentid);
 	
 	// 좋아요가 있는지 확인
 	public Boolean checkboxgoodmarkview(String id, int contentid);
+	
 }

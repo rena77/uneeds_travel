@@ -79,10 +79,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from t_bookmark_table where
 		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode}) and  contentid = #{contentid}
 	</delete>
+	
 	<delete id="t_goodmarkdelete">
 		delete from t_good_table where
 		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{tourmembercode}) and  contentid = #{contentid}
 	</delete>
+	
+	<delete id = "t_reviewdelete">
+		delete from t_review_table where
+		(select TourMembercode from umemeber_table a, t_member_table b where a.mcode = b.mcode and a.mid = #{mid}) and  rcode = #{rcode}
+	</delete>
+	
+	<select id ="userinforeview" resultType="com.travel.model.UserinfoVO">
+		select * from umemeber_table a, t_member_table b, t_review_table c, t_tgroub_table d
+		where a.MCODE = b.MCODE and b.tourmembercode = c.tourmembercode and c.contentid = d.contentid and a.mid = #{userid}
+	</select>
+	
+	<select id ="userinforebookmark" resultType="com.travel.model.UserinfoVO">
+		select * from umemeber_table a, t_member_table b, t_bookmark_table c, t_tgroub_table d
+		where a.MCODE = b.MCODE and b.tourmembercode = c.tourmembercode and c.contentid = d.contentid and a.mid = #{userid}
+	</select>
+	
+	<select id ="userinforegood" resultType="com.travel.model.UserinfoVO">
+		select * from umemeber_table a, t_member_table b, t_good_table c, t_tgroub_table d
+		where a.MCODE = b.MCODE and b.tourmembercode = c.tourmembercode and c.contentid = d.contentid and a.mid = #{userid}
+	
+	</select>
 </mapper>
 
 

@@ -36,6 +36,7 @@ import com.travel.model.ReviewVO;
 import com.travel.model.ReviewinsertVO;
 import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
+import com.travel.model.UserinfoVO;
 import com.travel.model.bookmarkrecommendVO;
 import com.travel.persistence.TourDAO;
 
@@ -61,6 +62,11 @@ public class HomeController {
 	@RequestMapping(value = "/main")
 	public String main(Locale locale, Model model) {
 		return "main";
+	}
+	
+	@RequestMapping(value = "/customerlist")
+	public String customerlist(Locale locale, Model model) {
+		return "customerlist";
 	}
 	
 	@RequestMapping(value = "/bookmark")
@@ -424,6 +430,24 @@ public class HomeController {
 		return states;
 	}
 	
+	/* reveiw 삭제 */
+	@RequestMapping(value = "t_reviewdelete", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> reveiwdelete(HttpServletRequest r, UserinfoVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.reveiwdelete(vo);
+		
+		return states;
+	}
+	
 	/* 추가 가입 정보 저장 */
 	@RequestMapping(value = "t_additionmemberinfo", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> insertmembercheck(HttpServletRequest r, TMemberVO vo) {
@@ -490,5 +514,13 @@ public class HomeController {
 		String i = httpServletRequest.getParameter("contentid");
 		int contentid = Integer.parseInt(i);
 		return dao.checkboxgoodmarkview(id, contentid);
+	}
+	
+	/* id로 전체 값 얻기 */
+	@RequestMapping(value = "/userinfolist", method = RequestMethod.GET)
+	public @ResponseBody List<UserinfoVO> userinfo(HttpServletRequest httpServletRequest) {
+		String id = httpServletRequest.getParameter("userid");
+		String userwrite = httpServletRequest.getParameter("infonumber");
+		return dao.userinfolist(id, userwrite);
 	}
 }

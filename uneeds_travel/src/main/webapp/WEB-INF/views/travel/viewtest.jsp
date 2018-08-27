@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -749,23 +748,43 @@ function reviewmodal(){
 	
 		var detailcontentid = document.getElementById("detailcontentid");			
 		var contentid = $(detailcontentid).attr("value");
+		var detailcontenttypeid = document.getElementById("detailcontenttypeid");			
+		var contenttypeid = $(detailcontenttypeid).attr("value");
 		var star = $(mainstar).attr("title");
 		var text = $("textarea#textarea-text").val();
 		var modal = document.getElementById("myModal");
-		
-		console.log(star);
-		
+				
 		$.post("t_reviewinsert", {
 			tourmembercode : '<%=id %>',
 			contentid : contentid,
 			tourtext : text,
 			star : star
 			}).done(function(data, state) {
+				
+				alert("리뷰 작성 감사합니다.")
+				
+				modal.style.display = "none";
+				
+				$.ajax({
+					url : "detailedinformation",
+					type : 'get',
+					datatype : 'json', //respone 데이터 타입
+					data : {
+						"contenttype" : contenttypeid,
+						"contentId" : contentid
+						},
+					success :	function(data){
+						detailedinformat(data);
+						detailedinformationlist(data);
+						bookmarkrecommend();
+					},
+					error : function(request, status, error){ //에러 함수
+						alert("ERROR");
+					}
 			});
+				
+		});
 		
-		alert("리뷰 작성 감사합니다.")
-		
-		modal.style.display = "none";
 	}
 
 </script>
@@ -815,7 +834,7 @@ function reviewmodal(){
 							"<a class='btn_direction btn_next' id = 'recommend_next' aria-label='다음' role='button' onclick='javascript:moverecommend(this);'>" +
 							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>" +
 							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a></div>" +
-							"</div>" +
+						"</div>" +
 					"<div class=list_item_inner>" +
 						"<div><h3 style='float:left; padding-top: 8px;'>리뷰</h3><input class= 'button button5' type = 'button'  name='input1' onclick= javascript:reviewmodal(); value ='리뷰쓰기' style='margin-left : 200px'></div>" +
 						"<div class='flick_container' style='height: 150px; z-index: 1;'>"+
@@ -828,7 +847,6 @@ function reviewmodal(){
 							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
 						"</div></div></div><input class='button button5' type=button value='돌아가기' onClick='detailshowhide();' style='margin-left : 250px; margin-top : 8px; margin-bottom : 8px;'></li>");
 		reviewstar(contentid);
-		moverecommend();
 		checkboxbookmarkview(contentid);
 		checkboxgoodview(contentid);
 	}
@@ -977,7 +995,7 @@ function	reviewstar(contentid){
 			reviewlistlength += 272; 
 			reviewlist.style.transform="translate("+reviewlistlength+"px , 0px)"; 		//오른쪽으로 이동
 		}
-		
+				
 		if (reviewlist.offsetWidth < 564){
 			$("#reviewlist_prev").hide();
 			$("#reviewlist_next").hide();
@@ -998,13 +1016,14 @@ function	reviewstar(contentid){
 		
 		var leftright = $(click).attr("aria-label");
 		recommendlist = document.getElementById("recommend");  //review의 list 객체 받아오기
-		
+		recommed_paren = document.getElementById("recommed_paren");
+				
 		if(leftright == "다음"){
-			recommendlistlength -= 282; 
+			recommendlistlength -= 272; 
 			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)";     //왼쪽으로 이동
 		}
 		if(leftright == "이전"){
-			recommendlistlength += 282; 
+			recommendlistlength += 272; 
 			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)"; 		//오른쪽으로 이동
 		}
 		
@@ -1033,6 +1052,7 @@ function listpage1(listdata){
 	var contenttypeid = listdata.data3.value; //contenttypeid
 		reviewlistlength = 0;
 		recommendlistlength = 0;
+		
 		$.ajax({
 			url : "detailedinformation",
 			type : 'get',
@@ -1452,8 +1472,6 @@ window.onresize = funLoad;
 		var age = $("#selectage").val();
 		var phone = $("#selectphone").val();
 		
-		console.log(username);
-		console.log(phone);
 		
 		if(username == '' && phone == ''){
 			alert("username 또는 phone을 입력해주세요.")
@@ -1563,12 +1581,14 @@ window.onresize = funLoad;
 				for (var i = 0; i < items.length; i++){
 					item = $(items[i]);
 						ullist.append("<div class='flick_content' role='listItem'>" +
-						"<div class='list_item' role='listitem'>" +
-							"<div class='thumb' style='z-index: 0; text-align:center;'>" +
-							"<img src= '" + item.find("firstimage").text()+ "' width='100' height='100' onerror= 'javascript:imagechage(this);' alt=''></div>"+
-							"<div class='txtdiv' style='text-align: center;'><div class='txtbox' style='width:228px;min-height:25px;'>"+ item.find("title").text()+ "</div>"+
-							"</div></div></div>");
+											"<div class='list_item' role='listitem'>" +
+												"<div style='z-index: 0; text-align:center;'>" +
+													"<img src= '" + item.find("firstimage").text()+ "' width='100' height='100' onerror= 'javascript:imagechage(this);' alt=''>" +
+												"</div>"+
+											"<div class='txtdiv' style='text-align: center;'><div class='txtbox' style='width:228px;min-height:25px;'>"+ item.find("title").text()+ "</div>"+
+										"</div></div></div>");
 				}
+				moverecommend();
 			},error : function(request, status, error){ //에러 함수
 				alert("ERROR");
 			}
