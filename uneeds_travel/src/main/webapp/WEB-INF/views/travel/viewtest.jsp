@@ -69,7 +69,7 @@ var infowindows = []; // 정보 배열
 			    	position: position.destinationPoint(90, 15),
 			    	map: map,
 			    	icon: {
-			        	url: '/resources/travel/img/food2.png',
+			    		url: HOME_PATH,
 			        	size: new naver.maps.Size(50, 50),
 			        	origin: new naver.maps.Point(0, 0),
 			        	anchor: new naver.maps.Point(25, 26)
@@ -1262,12 +1262,12 @@ function listpage1(listdata){
 		var span = document.getElementsByClassName("modal-close")[0];         // Get the <span> element that closes the modal    
 		var overviewstory = $("#ovewviewinfo");
 		
-		// When the user clicks on <span> (x), close the modal
+		// 버튼 클릭시 모달창 off
 		span.onclick = function() {
 		    modal.style.display = "none";
 		}
 
-		// When the user clicks anywhere outside of the modal, close it
+		// 다른 window 창일 시 off
 		window.onclick = function(event) {
 		    if (event.target == modal) {
 		        modal.style.display = "none";
@@ -1346,8 +1346,8 @@ function arealishomepage(data){
 			url : "areasidocode",
 			type : 'get', // get/post 방식
 			datatype : 'json', // response 데이터 타입
-			success : bindSelsido,
-			error : function(request, status, error){ //에러 함수
+			success : bindSelsido, // 성공 시 함수 실행
+			error : function(request, status, error){ //에러 시 에러 표시
 				alert("ERROR");
 			}
 		});
@@ -1359,7 +1359,7 @@ function arealishomepage(data){
 			url : "areagungucode",
 			type : 'get', // get/post 방식
 			datatype : 'json', // response 데이터 타입,
-			success : bindSelgu,
+			success : bindSelgu, // 군구 표현
 			error : function(request, status, error){ //에러 함수
 				alert("ERROR");
 			}
@@ -1400,8 +1400,8 @@ $(function(){
 			url : "areagungucode",
 			type : 'get', // get/post 방식
 			datatype : 'json', // response 데이터 타입
-			data : {"areaCode" : this.value},
-			success : bindSelgu,
+			data : {"areaCode" : this.value},	// 시도가 바뀔 때 군구를 바꾸기 위한 data
+			success : bindSelgu,	
 			error : function(request, status, error){ //에러 함수
 				alert("ERROR");
 			}

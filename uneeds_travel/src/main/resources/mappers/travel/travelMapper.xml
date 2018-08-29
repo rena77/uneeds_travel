@@ -52,11 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		in (select mcode from t_member_table where mcode != (select mcode from umemeber_table where mid = #{mid}) and TMage between 
 		(SELECT truncate((select tmage from t_member_table where mcode = (select mcode from umemeber_table where mid = #{mid})), -1) FROM DUAL) 
 		and (SELECT truncate((select tmage from t_member_table where mcode = (select mcode from umemeber_table where mid = #{mid}))+10, -1) FROM DUAL))
-		GROUP BY contentid HAVING num>1;
+		GROUP BY contentid HAVING num>1 ORDER BY rand();
 	</select>
 	
 	<select id ="nologinrecommend" resultType="com.travel.model.bookmarkrecommendVO">
-		select *, count(*) as num from t_bookmark_table GROUP BY contentid HAVING num>1;
+		select * from t_tgroub_table where groubcount > 3000 ORDER BY rand() DESC limit 10;
 	</select>
 	
 	<select id ="areabaseinfo" resultType="com.travel.model.TravelareainfoVO">
